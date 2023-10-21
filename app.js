@@ -5,6 +5,7 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let dotenv = require('dotenv');
 let cors = require('cors');
+let { createJSON } = require('./lib/createJSON');
 
 dotenv.config();
 
@@ -23,7 +24,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
@@ -32,12 +32,12 @@ app.use('/api', apiRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -67,28 +67,10 @@ function listVideoFiles(directory) {
   });
 }
 
-// Function to create a JSON file for each video file
-function createVideoDatabase(videoFiles) {
-  videoFiles.forEach((videoFile) => {
-    const videoData = {
-      filename: videoFile,
-      title: '',
-      duration: '',
-      resolution: '',
-      dateAdded: new Date().toLocaleString(),
-    };
-    
-    const jsonFileName = `${path.basename(videoFile, path.extname(videoFile))}.json`;
-    const jsonFilePath = path.join(databaseDirectory, jsonFileName);
-
-    fs.writeFileSync(jsonFilePath, JSON.stringify(videoData, null, 2), 'utf8');
-  });
-}
-
 // List video files in a directory
 const videoFiles = listVideoFiles(process.env.VIDEODIR);
 
 // Create a JSON file for each video file with initial data
-createVideoDatabase(videoFiles);
+createJSON(videoFiles, databaseDirectory);
 
-console.log('File-based video database created.');
+console.log('Ready!');
