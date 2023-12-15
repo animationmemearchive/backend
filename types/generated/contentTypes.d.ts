@@ -683,13 +683,14 @@ export interface ApiCreatorCreator extends Schema.CollectionType {
     singularName: 'creator';
     pluralName: 'creators';
     displayName: 'Creator';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Attribute.String;
-    Profile: Attribute.Media;
+    name: Attribute.String;
+    pfp: Attribute.Media;
     videos: Attribute.Relation<
       'api::creator.creator',
       'oneToMany',
@@ -722,7 +723,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     video: Attribute.Media & Attribute.Required;
@@ -736,7 +737,6 @@ export interface ApiVideoVideo extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::video.video',
       'oneToOne',
