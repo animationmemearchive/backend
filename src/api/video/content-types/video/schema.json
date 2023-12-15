@@ -27,6 +27,14 @@
     "description": {
       "type": "text"
     },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "creator": {
       "type": "relation",
       "relation": "manyToOne",
