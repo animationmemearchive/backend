@@ -26,5 +26,5 @@ jobs:
 
           - name: 'Build & Publish Docker Image'
             run: |
-              docker build . --tag "ghcr.io/${REPO}:latest"
+              docker build . --tag "ghcr.io/${REPO}:latest" -f Dockerfile.prod
               docker push "ghcr.io/${REPO}:latest"
