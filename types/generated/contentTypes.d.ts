@@ -735,6 +735,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
       'manyToOne',
       'api::creator.creator'
     >;
+    uploaded: Attribute.Date;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

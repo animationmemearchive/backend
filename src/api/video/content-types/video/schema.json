@@ -40,6 +40,9 @@
       "relation": "manyToOne",
       "target": "api::creator.creator",
       "inversedBy": "videos"
+    },
+    "uploaded": {
+      "type": "date"
     }
   }
 }
